@@ -307,13 +307,13 @@ export const streamYoutube = async (req, res) => {
                 ]
         ;
         
-          const agent = ytdl.createProxyAgent({uri:"http://122.200.19.103:80"},[cookies]);
-        const audioStream = ytdl(videoUrl, {
-            filter: 'audioonly',
-            quality: 'highestaudio'
-        },{agent});
+          const agent = ytdl.createProxyAgent({uri:"http://152.26.229.42:9443"},[cookies]);
+        
+        const info = await ytdl.getInfo(videoUrl, { agent });
 
-        audioStream.pipe(res);
+        const format = ytdl.chooseFormat(info.formats, { filter: 'audioonly' });
+
+        format.pipe(res);
     } catch (err) {
         console.error('YouTube stream error:', err);
         res.status(500).json({ error: 'Server error', details: err.message });
