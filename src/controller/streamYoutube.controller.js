@@ -309,7 +309,9 @@ export const streamYoutube = async (req, res) => {
         
           const agent = ytdl.createProxyAgent({uri:"http://152.26.229.42:9443"},[cookies]);
         
-        const info = await ytdl.getInfo(videoUrl, { agent });
+        const info = await ytdl.getInfo(videoUrl, { agent },{
+    timeout: 120000, // 2 minutes
+  });
 
         const format = ytdl.chooseFormat(info.formats, { filter: 'audioonly' });
 
