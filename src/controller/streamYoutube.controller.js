@@ -10,7 +10,7 @@ export const streamYoutube = async (req, res) => {
     try {
         res.setHeader('Content-Type', 'audio/mpeg'); 
         res.setHeader('Transfer-Encoding', 'chunked');
-        const cookies =[
+        const cookies =
             [
                 {
                     "domain": ".youtube.com",
@@ -305,13 +305,9 @@ export const streamYoutube = async (req, res) => {
                     "id": 21
                 }
                 ]
-        ];
-        const agentOptions = {
-            pipelining: 5,
-            maxRedirections: 0,
-            localAddress: "127.0.0.1",
-          };
-          const agent = ytdl.createAgent(cookies, agentOptions);
+        ;
+        
+          const agent = ytdl.createProxyAgent({uri:"http://122.200.19.103:80"},[cookies]);
         const audioStream = ytdl(videoUrl, {
             filter: 'audioonly',
             quality: 'highestaudio'
